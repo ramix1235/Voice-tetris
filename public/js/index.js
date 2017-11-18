@@ -18,12 +18,21 @@ function init() {
   renderer.shadowMap.enabled = true;
   container.appendChild(renderer.domElement);
 
-  let cube = createBlock(41, 1, 1, 0xFFCC00);
-  cube.position.z = 27;
-  cube.position.x = -8.7;
-  cube.rotation.y = 28 * Math.PI / 180;
-  cube.rotation.z = 0.6 * Math.PI / 180;
-  activeObj = cube;
+  let blocksBackground = createBlock(41, 40, 1, 0xA5A5A5);
+  blocksBackground.position.z = -8;
+  blocksBackground.position.x = -27;
+  blocksBackground.position.y = 0.2;
+  blocksBackground.rotation.y = 28 * Math.PI / 180;
+  blocksBackground.rotation.z = 0.6 * Math.PI / 180;
+
+  let blocksBasement = createBlock(41, 1, 1, 0xA5A5A5);
+  blocksBasement.position.z = 27;
+  blocksBasement.position.x = -8.7;
+  blocksBasement.rotation.y = 28 * Math.PI / 180;
+  blocksBasement.rotation.z = 0.6 * Math.PI / 180;
+
+
+  activeObj = createBlock(1, 1, 1, 0xCC0605);
   // activeObj = createBox({ x:30, y:30, z:30 }, { x:0, y:0, z:0 }, { x:1, y:1, z:1 }, { x:0, y:0, z:0 });
   // create3DText('Vice Tetrice', { x:-5, y:0, z:65 });
 
@@ -48,8 +57,7 @@ function init() {
   addEventListeners();
 };
 
-function createBlock(width, height, depth, color) {
-  const shift = 1.02;
+function createBlock(width, height, depth, color, shift = 1.02) {
   const block = new THREE.Group();
   for (let k = 0; k < depth; k++) {
     for (let i = 0; i < width; i++) {
