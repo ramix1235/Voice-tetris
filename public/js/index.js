@@ -11,6 +11,8 @@ function init() {
 
   camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 5000);
   camera.position.set(0, 50, 120);
+  camera.position.x = Math.sin(-0.7) * 120;
+  camera.position.z = Math.cos(-0.7) * 120;
 
   renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
@@ -18,8 +20,9 @@ function init() {
   renderer.shadowMap.enabled = true;
   container.appendChild(renderer.domElement);
 
-  // camera.position.x = Math.sin(0.7) * 200;
-  // camera.position.z = Math.cos(0.7) * 200;
+  const axis = new THREE.AxisHelper(75);
+  scene.add(axis);
+
   addEnvironment();
   addEventListeners();
 };
@@ -33,11 +36,6 @@ function animate() {
 function render() {
   renderer.render(scene, camera);
   // activeObj = scene.children.find((item) => {return item.name == 'cube'});
-};
-
-function addEventListeners() {
-  window.addEventListener('resize', onWindowResize, false);
-  window.addEventListener('speeching', speeching, false);
 };
 
 function onWindowResize() {

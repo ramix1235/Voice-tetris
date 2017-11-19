@@ -1,26 +1,43 @@
 function addBlocksScene() {
     let blocksBackground = createBlock(41, 40, 1, 0xA5A5A5);
-    blocksBackground.position.z = -8;
-    blocksBackground.position.x = -27;
-    blocksBackground.position.y = 0.2;
-    blocksBackground.rotation.y = 28 * Math.PI / 180;
-    blocksBackground.rotation.z = 0.6 * Math.PI / 180;
+    blocksBackground.position.x = -41 / 2;
+    blocksBackground.position.z = -20;
+    // blocksBackground.position.y = 0.5;
+    // blocksBackground.rotation.z = 0.6 * Math.PI / 180;
+
+    // blocksBackground.position.z = -8;
+    // blocksBackground.position.y = 0.2;
+    // blocksBackground.rotation.y = 28 * Math.PI / 180;
 
     let blocksBasement = createBlock(41, 1, 1, 0xA5A5A5);
-    blocksBasement.position.z = 27;
-    blocksBasement.position.x = -8.7;
-    blocksBasement.rotation.y = 28 * Math.PI / 180;
-    blocksBasement.rotation.z = 0.6 * Math.PI / 180;
+    blocksBasement.position.x = -41 / 2;
+    blocksBasement.position.z = 20;
+    // blocksBasement.position.y = 0.5;
+    // blocksBasement.rotation.z = 0.6 * Math.PI / 180;
+
+    // blocksBasement.position.z = 27;
+    // blocksBasement.position.x = -8.7;
+    // blocksBasement.rotation.y = 28 * Math.PI / 180;
 
     activeObj = createYellowBlock();
     activeObj.position.x = -10;
+    // activeObj.rotation.y = 28 * Math.PI / 180;
+    // activeObj.rotation.z = 0.6 * Math.PI / 180;
     activeObj = createPurpleBlock();
     activeObj.position.x = 10;
+    // activeObj.rotation.y = 28 * Math.PI / 180;
+    // activeObj.rotation.z = 0.6 * Math.PI / 180;
     activeObj = createTealBlock();
     activeObj.position.y = 10;
+    // activeObj.rotation.y = 28 * Math.PI / 180;
+    // activeObj.rotation.z = 0.6 * Math.PI / 180;
     activeObj = createRedBlock();
     activeObj.position.z = 10;
+    // activeObj.rotation.y = 28 * Math.PI / 180;
+    // activeObj.rotation.z = 0.6 * Math.PI / 180;
     activeObj = createBlueBlock();
+    // activeObj.rotation.y = 28 * Math.PI / 180;
+    // activeObj.rotation.z = 0.6 * Math.PI / 180;
 }
 
 function createYellowBlock() {
