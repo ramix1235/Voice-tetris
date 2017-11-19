@@ -1,6 +1,6 @@
 var langs = [
- ['English', ['en-GB']],
- ['Pусский', ['ru-RU']]
+  ['English', ['en-GB']],
+  ['Pусский', ['ru-RU']]
 ];
 var final_transcript = '';
 var recognizing = false;
@@ -24,12 +24,12 @@ if (!('webkitSpeechRecognition' in window)) {
   var recognition = new webkitSpeechRecognition();
   recognition.continuous = true;
   recognition.interimResults = true;
-  recognition.onstart = function() {
+  recognition.onstart = function () {
     recognizing = true;
     showInfo('info_speak_now');
     start_img.src = '/public/gif/mic-animate.gif';
   };
-  recognition.onerror = function(event) {
+  recognition.onerror = function (event) {
     if (event.error == 'no-speech') {
       start_img.src = '/public/gif/mic.gif';
       showInfo('info_no_speech');
@@ -49,7 +49,7 @@ if (!('webkitSpeechRecognition' in window)) {
       ignore_onend = true;
     }
   };
-  recognition.onend = function() {
+  recognition.onend = function () {
     recognizing = false;
     if (ignore_onend) {
       return;
@@ -61,7 +61,7 @@ if (!('webkitSpeechRecognition' in window)) {
     }
     showInfo('');
   };
-  recognition.onresult = function(event) {
+  recognition.onresult = function (event) {
     var interim_transcript = '';
     for (var i = event.resultIndex; i < event.results.length; ++i) {
       if (event.results[i].isFinal) {
@@ -115,4 +115,13 @@ function showInfo(s) {
   } else {
     info.style.visibility = 'hidden';
   }
+};
+function speeching() {
+  let sentence = speechComand.split(' ');
+  command = sentence[sentence.length - 1].toLowerCase();
+  if (~command.indexOf('l') || ~command.indexOf('л')) {
+    activeObj.position.x -= 10;
+  } else if (~command.indexOf('r') || ~command.indexOf('п')) {
+    activeObj.position.x += 10;
+  };
 };
