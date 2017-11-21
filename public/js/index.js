@@ -8,6 +8,7 @@ function init() {
   }
   addStats();
   scene = new THREE.Scene();
+  scene.fog=new THREE.FogExp2( 0xffffff, 0.005 );
 
   camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 5000);
   camera.position.set(0, 50, 120);
