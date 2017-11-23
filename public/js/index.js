@@ -8,9 +8,9 @@ function init() {
   }
   addStats();
   scene = new THREE.Scene();
-  scene.fog=new THREE.FogExp2( 0xffffff, 0.005 );
+  scene.fog = new THREE.FogExp2(0xffffff, 0.006);
 
-  camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 5000);
+  camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 400);
   camera.position.set(0, 50, 120);
   camera.position.x = Math.sin(-0.7) * 120;
   camera.position.z = Math.cos(-0.7) * 120;
@@ -35,7 +35,8 @@ function animate() {
 };
 
 function render() {
-  renderer.render(scene, camera);
+  composer.render();
+  // renderer.render(scene, camera);
   // activeObj = scene.children.find((item) => {return item.name == 'cube'});
 };
 
@@ -43,6 +44,7 @@ function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
+  composer.setSize(window.innerWidth, window.innerHeight);
 };
 
 function updateDevModules() {

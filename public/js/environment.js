@@ -2,7 +2,22 @@ function addEnvironment() {
     loadModels();
     addBlocksScene();
     addLights();
+    addShaders();
     addOrbitControls();
+};
+
+function addShaders () {
+    composer = new THREE.EffectComposer(renderer);
+    composer.addPass(new THREE.RenderPass(scene, camera));
+  
+    const shaderVignette = THREE.VignetteShader;
+    const effectVignette = new THREE.ShaderPass(shaderVignette);
+    // larger values = darker closer to center
+    // darkness < 1  => lighter edges
+    effectVignette.uniforms["offset"].value = 0.8;
+    effectVignette.uniforms["darkness"].value = 2;
+    effectVignette.renderToScreen = true;
+    composer.addPass(effectVignette);
 };
 
 function addLights() {

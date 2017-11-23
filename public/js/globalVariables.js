@@ -21,3 +21,4 @@ let devModules = {
 };
 let speechComand = '';
 let activeObj = null;
+let composer;

@@ -120,8 +120,8 @@ function speeching() {
   let sentence = speechComand.split(' ');
   command = sentence[sentence.length - 1].toLowerCase();
   if (~command.indexOf('l') || ~command.indexOf('л')) {
-    activeObj.position.x -= 10;
+    activeObj.moveLeft();
   } else if (~command.indexOf('r') || ~command.indexOf('п')) {
-    activeObj.position.x += 10;
+    activeObj.moveRight();
   };
 };
