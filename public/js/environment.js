@@ -6,10 +6,10 @@ function addEnvironment() {
     addOrbitControls();
 };
 
-function addShaders () {
+function addShaders() {
     composer = new THREE.EffectComposer(renderer);
     composer.addPass(new THREE.RenderPass(scene, camera));
-  
+
     const shaderVignette = THREE.VignetteShader;
     const effectVignette = new THREE.ShaderPass(shaderVignette);
     // larger values = darker closer to center
@@ -25,13 +25,13 @@ function addLights() {
 
     const spotLight = new THREE.SpotLight(0x696969);
     spotLight.position.set(150, 100, 100);
-    spotLight.castShadow = true;
+    // spotLight.castShadow = true;
     spotLight.shadow.mapSize.width = 1024;
     spotLight.shadow.mapSize.height = 1024;
 
     const spotLight2 = new THREE.SpotLight(0x696969);
     spotLight2.position.set(150, -100, 100);
-    spotLight2.castShadow = true;
+    // spotLight2.castShadow = true;
     spotLight2.shadow.mapSize.width = 1024;
     spotLight2.shadow.mapSize.height = 1024;
 

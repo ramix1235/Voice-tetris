@@ -35,8 +35,23 @@ const BaseClass = class BaseClass {
   }
 
   moveRight(count = 1) {
+    if (count === 0) return;
     for (let i = 0; i < count; i++) {
       this.THREE.position.x += 1.02;
+    }
+  }
+
+  rotateLeft(count = 1) {
+    if (count === 0) return;
+    for (let i = 0; i < count; i++) {
+      this.THREE.rotation.y += 90 * Math.PI / 180;
+    }
+  }
+
+  rotateRight(count = 1) {
+    if (count === 0) return;
+    for (let i = 0; i < count; i++) {
+      this.THREE.rotation.y -= 90 * Math.PI / 180;
     }
   }
 

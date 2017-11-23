@@ -117,11 +117,15 @@ function showInfo(s) {
   }
 };
 function speeching() {
+  let originPoint = activeObj.THREE.position.clone();
   let sentence = speechComand.split(' ');
   command = sentence[sentence.length - 1].toLowerCase();
   if (~command.indexOf('l') || ~command.indexOf('л')) {
     activeObj.moveLeft();
   } else if (~command.indexOf('r') || ~command.indexOf('п')) {
     activeObj.moveRight();
-  };
+  }
+  if (isIntersects(activeObj.THREE, blockMeshes)) {
+    activeObj.THREE.position.set(originPoint.x, originPoint.y, originPoint.z);
+  }
 };

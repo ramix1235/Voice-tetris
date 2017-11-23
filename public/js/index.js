@@ -21,8 +21,8 @@ function init() {
   renderer.shadowMap.enabled = true;
   container.appendChild(renderer.domElement);
 
-  const axis = new THREE.AxisHelper(75);
-  scene.add(axis);
+  const axes = new THREE.AxesHelper(75);
+  scene.add(axes);
 
   addEnvironment();
   addEventListeners();
@@ -32,12 +32,13 @@ function animate() {
   requestAnimationFrame(animate);
   render();
   updateDevModules();
+  // helperBB.update();
 };
 
 function render() {
   composer.render();
+  // initModelsObj();
   // renderer.render(scene, camera);
-  // activeObj = scene.children.find((item) => {return item.name == 'cube'});
 };
 
 function onWindowResize() {
@@ -60,24 +61,3 @@ function addStats() {
   container.appendChild(devModules.stats.domElement);
   devModules.stats.domElement.style.position = 'absolute';
 };
-
-// function createBox(size, pos, sc, rot) {
-//   const boxGeometry = new THREE.BoxGeometry(size.x, size.y, size.z);
-//   const boxMaterial = new THREE.MeshPhongMaterial({ color: 0xFFCC00, specular: 0xFFFFFF });
-//   boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
-//   boxMesh.castShadow = true;
-//   boxMesh.receiveShadow = true;
-//   if (pos) {
-//     boxMesh.position.set(pos.x, pos.y, pos.z);
-//   }
-//   if (sc) {
-//     boxMesh.scale.set(sc.x, sc.y, sc.z);
-//   }
-//   if (rot) {
-//     boxMesh.rotation.set(rot.x, rot.y, rot.z);
-//   }
-//   scene.add(boxMesh);
-//   return boxMesh;
-// };
-// EXAMPLE
-// activeObj = createBox({ x:30, y:30, z:30 }, { x:0, y:0, z:0 }, { x:1, y:1, z:1 }, { x:0, y:0, z:0 });

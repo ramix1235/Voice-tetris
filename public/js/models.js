@@ -1,5 +1,6 @@
 function loadModels() {
     loadOBJModel('../../public/models/Island', 'island', { x: 0, y: -37, z: 0 }, { x: 50, y: 50, z: 50 }, { x: 0, y: 0, z: 0 });
+    loadOBJModel('../../public/models/Abstract-island', 'abstract-island', { x: 80, y: -5, z: 10 }, { x: 50, y: 50, z: 50 }, { x: 0, y: 0, z: 0 });
     // loadFBXModel('../../public/models/Model', 'model', { x:0, y:0, z:0 }, { x:1, y:1, z:1 });
 };
 

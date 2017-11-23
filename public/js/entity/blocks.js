@@ -1,5 +1,5 @@
 const Block = class Block extends BaseClass {
-    constructor(width, height, depth, color, shift) {
+    constructor(width, height, depth, color, merged, shift) {
         super();
         this.name = 'block';
         this.color = color;
@@ -9,6 +9,7 @@ const Block = class Block extends BaseClass {
             y: height,
             z: depth
         };
+        this.merged = merged || false;
         // this.unitSize = {
         //     rectangle: {
         //         z: 1,
@@ -24,14 +25,33 @@ const Block = class Block extends BaseClass {
     }
 
     create() {
-        const block = new THREE.Group();
-        for (let k = 0; k < this.size.z; k++) {
-            for (let i = 0; i < this.size.x; i++) {
-                block.add(createUnit(this.color, { x: i * this.shift, y: false, z: k * this.shift }));
-                for (let j = 1; j < this.size.y; j++) {
-                    block.add(createUnit(this.color, { x: i * this.shift, y: j * this.shift, z: k * this.shift }));
+        let block;
+        if (!this.merged) {
+            block = new THREE.Group();
+            for (let k = 0; k < this.size.z; k++) {
+                for (let i = 0; i < this.size.x; i++) {
+                    block.add(createUnit(this.color, { x: i * this.shift, y: false, z: k * this.shift }));
+                    for (let j = 1; j < this.size.y; j++) {
+                        block.add(createUnit(this.color, { x: i * this.shift, y: j * this.shift, z: k * this.shift }));
+                    }
                 }
             }
+        } else {
+            const singleGeometry = new THREE.Geometry();
+            const singleMaterial = new THREE.MeshPhongMaterial({ color: this.color });
+            for (let k = 0; k < this.size.z; k++) {
+                for (let i = 0; i < this.size.x; i++) {
+                    let newMesh = createUnit(this.color, { x: i * this.shift, y: false, z: k * this.shift });
+                    singleGeometry.merge(newMesh.geometry, newMesh.matrix);
+                    for (let j = 1; j < this.size.y; j++) {
+                        let newMesh = createUnit(this.color, { x: i * this.shift, y: j * this.shift, z: k * this.shift });
+                        singleGeometry.merge(newMesh.geometry, newMesh.matrix);
+                    }
+                }
+            }
+            block = new THREE.Mesh(singleGeometry, singleMaterial);
+            block.castShadow = true;
+            block.receiveShadow = true;
         }
         block.position.y = 0.5;
         this.setTHREE(block);
@@ -54,14 +74,16 @@ const Block = class Block extends BaseClass {
             cylinder.position.set(coords.x || 0, coords.y || 0, coords.z || 0);
             cylinder.position.y += 0.6;
 
-            // For merge
             box.updateMatrix();
             cylinder.updateMatrix();
             const singleGeometry = new THREE.Geometry();
             singleGeometry.merge(box.geometry, box.matrix);
             singleGeometry.merge(cylinder.geometry, cylinder.matrix);
-            return new THREE.Mesh(singleGeometry, boxMaterial);
-            // return new THREE.Group().add(box, cylinder);
+
+            let unit = new THREE.Mesh(singleGeometry, boxMaterial);
+            unit.castShadow = true;
+            unit.receiveShadow = true;
+            return unit;
         };
     }
 };
