@@ -72,39 +72,46 @@ function mergeBlockGroupMeshes(block) {
 };
 
 function createYellowBlock() {
-    let block = new Block(2, 1, 2, new THREE.Color(0xD8D80E)).create();
+    let block = new Block(2, 2, 2, new THREE.Color(0xD8D80E)).create();
     pushBlockGroupInBlockMeshes(block);
     return block;
     // return mergeBlockGroupMeshes(block);
 };
 
 function createOrangeBlock() {
-    let block = new Block(3, 1, 2, new THREE.Color(0xD0820D)).create();
-    block.THREE.children.splice(5, 1);
-    block.THREE.children.splice(3, 1);
+    let block = new Block(3, 2, 2, new THREE.Color(0xD0820D)).create();
+    block.THREE.children.splice(6, 1);
+    block.THREE.children.splice(9, 1);
+    block.THREE.children.splice(6, 1);
+    block.THREE.children.splice(8, 1);
     pushBlockGroupInBlockMeshes(block);
     return block;
     // return mergeBlockGroupMeshes(block);
 };
 
 function createGreenBlock() {
-    let block = new Block(4, 1, 1, new THREE.Color(0x30AD30)).create();
+    let block = new Block(4, 2, 1, new THREE.Color(0x30AD30)).create();
     pushBlockGroupInBlockMeshes(block);
     return block;
     // return mergeBlockGroupMeshes(block);
 };
 
 function createRedBlock() {
-    let block = new Block(3, 1, 2, new THREE.Color(0xB50202)).create();
-    block.THREE.children.splice(2, 2);
+    let block = new Block(3, 2, 2, new THREE.Color(0xB50202)).create();
+    block.THREE.children.splice(4, 2);
+    block.THREE.children.splice(4, 1);
+    block.THREE.children.splice(4, 1);
     pushBlockGroupInBlockMeshes(block);
     return block;
     // return mergeBlockGroupMeshes(block);
 };
 
 function createBlueBlock() {
-    let block = new Block(3, 1, 2, new THREE.Color(0x1617AD)).create();
-    block.THREE.children.splice(3, 2);
+    let block = new Block(3, 2, 2, new THREE.Color(0x1617AD)).create();
+    block.THREE.children.splice(7, 1);
+    block.THREE.children.splice(7, 1);
+    block.THREE.children.splice(6, 1);
+    block.THREE.children.splice(6, 1);
     pushBlockGroupInBlockMeshes(block);
     return block;
     // return mergeBlockGroupMeshes(block);
