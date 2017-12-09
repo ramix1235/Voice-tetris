@@ -19,6 +19,6 @@ function animateME(options) {
   //     return 1 - Math.sin(Math.acos(timeFraction));
   //   },
   //   draw: function(progress) {
-  //     activeObj.THREE.rotation.x = progress * 1.57;
+  //     helperGame.activeBlock.THREE.rotation.x = progress * 1.57;
   //   }
   // });

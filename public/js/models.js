@@ -1,12 +1,12 @@
 function loadModels() {
     loadOBJModel('../../public/models/Island', 'island', { x: 0, y: -37, z: 0 }, { x: 50, y: 50, z: 50 }, { x: 0, y: 0, z: 0 });
-    loadOBJModel('../../public/models/Abstract-island', 'abstract-island', { x: 80, y: -5, z: 10 }, { x: 50, y: 50, z: 50 }, { x: 0, y: 0, z: 0 });
+    loadOBJModel('../../public/models/Abstract-island', 'abstract-island', { x: -30, y: 22.7, z: 0 }, { x: 50, y: 50, z: 50 }, { x: 0, y: 0, z: 0 });
     // loadFBXModel('../../public/models/Model', 'model', { x:0, y:0, z:0 }, { x:1, y:1, z:1 });
 };
 
 function loadFBXModel(path, name, pos, sc, rot) {
     const loaderFBX = new THREE.FBXLoader(manager);
-    loaderFBX.load(`${path}.fbx`, function (object) {
+    loaderFBX.load(`${path}.fbx`, object => {
         object.traverse(function (child) {
             child.castShadow = true;
             child.receiveShadow = true;
@@ -30,7 +30,7 @@ function loadFBXModel(path, name, pos, sc, rot) {
 function loadOBJModel(path, name, pos, sc, rot) {
     const mtlLoader = new THREE.MTLLoader(manager);
     const objLoader = new THREE.OBJLoader(manager);
-    mtlLoader.load(`${path}.mtl`, function (materials) {
+    mtlLoader.load(`${path}.mtl`, materials => {
         materials.preload();
         var objLoader = new THREE.OBJLoader();
         objLoader.setMaterials(materials);

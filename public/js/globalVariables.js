@@ -1,7 +1,12 @@
-const canvas = document.getElementsByTagName('canvas')[0];
 const container = document.getElementById('workspace');
 const manager = new THREE.LoadingManager();
 const mouse = new THREE.Vector2();
+const DIRECTION = {
+  left: 'left',
+  right: 'right',
+  top: 'top',
+  bottom: 'bottom'
+}
 let raycaster;
 let camera;
 let renderer;
@@ -10,10 +15,10 @@ let devModules = {
   stats: false
 };
 let speechComand = '';
-let activeObj = null;
+let helperGame = new HelperGame();
 let composer;
-let abstractIsland;
 let blockMeshes = [];
+let invisibleMeshes = [];
 
 
 manager.onProgress = function (item, loaded, total) {
@@ -61,48 +66,21 @@ function isIntersects(obj, arrMeshes) {
   // }
 };
 
-// function initModelsObj() {
-//   if (abstractIsland) return;
-//   let obj = scene.children.find((item) => { return item.name == 'abstract-island' });
-//   if (!obj) return;
-//   abstractIsland = obj;
-// }
+function THREERemove(obj) {
+  if (!obj) return;
+  obj.traverse(function (child) {
+    if (child instanceof THREE.Mesh) {
+      if (child.material.map) {
+        child.material.map.dispose();
+        child.material.map = undefined;
+      }
 
-// function copyAbstractIsland() {
-//   let countOfAbstractIsland = 10;
-//   let max = 100;
-//   let min = 20;
-//   for (let i = 0; i < countOfIsland; i++) {
-//     let pos = {
-//       x: Math.floor(Math.random() * (max - min + 1) + min),
-//       y: Math.floor(Math.random() * (max - min + 1) + min),
-//       z: Math.floor(Math.random() * (max - min + 1) + min)
-//     }
-//     let copyObj = abstractIsland.clone();
-//     copyObj.position.set(pos.x, pos.y, pos.z);
-//     // copyObj.scale.set();
-//     // copyObj.rotation.set();
-//     scene.add(copyObj);
-//   }
-// };
+      child.material.dispose();
+      child.material = undefined;
 
-// function createBox(size, pos, sc, rot) {
-//   const boxGeometry = new THREE.BoxGeometry(size.x, size.y, size.z);
-//   const boxMaterial = new THREE.MeshPhongMaterial({ color: 0xFFCC00, specular: 0xFFFFFF });
-//   boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
-//   boxMesh.castShadow = true;
-//   boxMesh.receiveShadow = true;
-//   if (pos) {
-//     boxMesh.position.set(pos.x, pos.y, pos.z);
-//   }
-//   if (sc) {
-//     boxMesh.scale.set(sc.x, sc.y, sc.z);
-//   }
-//   if (rot) {
-//     boxMesh.rotation.set(rot.x, rot.y, rot.z);
-//   }
-//   scene.add(boxMesh);
-//   return boxMesh;
-// };
-// EXAMPLE
-// activeObj = createBox({ x:30, y:30, z:30 }, { x:0, y:0, z:0 }, { x:1, y:1, z:1 }, { x:0, y:0, z:0 });
+      child.geometry.dispose();
+      child.geometry = undefined;
+    }
+  });
+  scene.remove(obj);
+};

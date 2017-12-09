@@ -1,46 +1,206 @@
-function addBlocksScene() {
+function createWall(count, color, increment, callback) {
+    for (let i = count, k = 0; i > 1; i -= increment, k++) {
+        let wall = new Block(i, 1, 1, new THREE.Color(color), true).create();
+        callback(wall, k);
+        blockMeshes.push(wall.THREE);
+    }
+};
+
+function createBorder(count, color, callback) {
+    let border = new Block(count, 1, 1, new THREE.Color(color), true).create();
+    callback(border);
+    blockMeshes.push(border.THREE);
+};
+
+function createDiagonalLine(count, color, direction, callback) {
+    for (let i = 0; i < count; i++) {
+        let block = new Block(1, 1, 1, new THREE.Color(color), true).create();
+        switch (direction) {
+            case DIRECTION.left: block.moveLeft(i); break;
+            case DIRECTION.right: block.moveRight(i);
+        }
+        block.moveTop(i);
+        callback(block);
+        blockMeshes.push(block.THREE);
+    }
+};
+
+function createLimitationLine() {
+    createBorder(19, 0xB50202, (border) => {
+        border.moveLeft(9);
+        border.moveBottom(10);
+        border.moveUp(21);
+    });
+    createBorder(21, 0xB50202, (border) => {
+        border.moveLeft(10);
+        border.moveBottom(10);
+        border.moveUp(21);
+        border.THREE.rotation.y = 90 * Math.PI / 180;
+    });
+    createBorder(19, 0xB50202, (border) => {
+        border.moveLeft(9);
+        border.moveTop(10);
+        border.moveUp(21);
+    });
+    createBorder(21, 0xB50202, (border) => {
+        border.moveRight(10);
+        border.moveBottom(10);
+        border.moveUp(21);
+        border.THREE.rotation.y = 90 * Math.PI / 180;
+    });
+    let blocksBridge = new Block(15, 1, 5, new THREE.Color(0xA5A5A5), true).create();
+    blocksBridge.moveLeft(25);
+    blocksBridge.moveTop(2);
+    blocksBridge.moveUp(21);
+};
+
+function createFloor() {
     let blocksFloor = new Block(41, 1, 41, new THREE.Color(0xA5A5A5), true).create();
     blocksFloor.THREE.position.x = -41 / 2;
     blocksFloor.THREE.position.x += 0.1;
     blocksFloor.THREE.position.z = -41 / 2;
     blocksFloor.THREE.position.z += 0.1;
     blocksFloor.THREE.position.y = -0.5;
-    for (let i = 40, k = 0; i > 1; i -= 4, k++) {
-        let wall = new Block(i, 1, 1, new THREE.Color(0xA5A5A5), true).create();
+    blockMeshes.push(blocksFloor.THREE);
+
+    createWall(40, 0xA5A5A5, 4, (wall, k) => {
         wall.moveRight(19);
         wall.moveTop(20);
         wall.moveUp(k);
         wall.THREE.rotation.y = Math.PI;
-        blockMeshes.push(wall.THREE);
-    }
-    for (let i = 30, k = 0; i > 1; i -= 4, k++) {
-        let wall = new Block(i, 1, 1, new THREE.Color(0xA5A5A5), true).create();
+    });
+    createWall(30, 0xA5A5A5, 4, (wall, k) => {
         wall.moveRight(20);
         wall.moveTop(20);
         wall.moveUp(k);
         wall.THREE.rotation.y = -90 * Math.PI / 180;
-        blockMeshes.push(wall.THREE);
-    }
-    let border1 = new Block(41, 1, 1, new THREE.Color(0xA5A5A5), true).create();
-    border1.moveLeft(20);
-    border1.moveBottom(20);
-    blockMeshes.push(border1.THREE);
-    let border2 = new Block(39, 1, 1, new THREE.Color(0xA5A5A5), true).create();
-    border2.moveLeft(20);
-    border2.moveBottom(19);
-    border2.THREE.rotation.y = 90 * Math.PI / 180;
-    blockMeshes.push(border2.THREE);
-    let border3 = new Block(10, 1, 1, new THREE.Color(0xA5A5A5), true).create();
-    border3.moveRight(20);
-    border3.moveBottom(10);
-    border3.THREE.rotation.y = -90 * Math.PI / 180;
-    blockMeshes.push(border3.THREE);
+    });
+    createBorder(41, 0xA5A5A5, (border) => {
+        border.moveLeft(20);
+        border.moveBottom(20);
+    });
+    createBorder(39, 0xA5A5A5, (border) => {
+        border.moveLeft(20);
+        border.moveBottom(19);
+        border.THREE.rotation.y = 90 * Math.PI / 180;
+    });
+    createBorder(10, 0xA5A5A5, (border) => {
+        border.moveRight(20);
+        border.moveBottom(10);
+        border.THREE.rotation.y = -90 * Math.PI / 180;
+    });
+};
 
-    createYellowBlock().moveBottom(10);
-    createOrangeBlock().moveTop(10);
-    createGreenBlock().moveLeft(10);
-    createBlueBlock().moveRight(10);
-    activeObj = createRedBlock();
+function createPodium() {
+    createWall(9, 0xA5A5A5, 1, (wall, k) => {
+        wall.moveTop(k);
+        wall.moveLeft(9);
+    });
+    createWall(9, 0xA5A5A5, 1, (wall, k) => {
+        wall.moveBottom(k);
+        wall.moveLeft(9);
+    });
+    createWall(9, 0xA5A5A5, 1, (wall, k) => {
+        wall.moveTop(k);
+        wall.moveRight(9);
+        wall.THREE.rotation.y = Math.PI;
+    });
+    createWall(9, 0xA5A5A5, 1, (wall, k) => {
+        wall.moveBottom(k);
+        wall.moveRight(9);
+        wall.THREE.rotation.y = Math.PI;
+    });
+    createWall(7, 0xA5A5A5, 1, (wall, k) => {
+        wall.moveTop(k);
+        wall.moveBottom(7);
+    });
+    createWall(7, 0xA5A5A5, 1, (wall, k) => {
+        wall.moveTop(k);
+        wall.moveBottom(7);
+        wall.THREE.rotation.y = Math.PI;
+    });
+    createWall(7, 0xA5A5A5, 1, (wall, k) => {
+        wall.moveBottom(k);
+        wall.moveTop(7);
+    });
+    createWall(7, 0xA5A5A5, 1, (wall, k) => {
+        wall.moveBottom(k);
+        wall.moveTop(7);
+        wall.THREE.rotation.y = Math.PI;
+    });
+
+    createBorder(1, 0xA5A5A5, (border) => {
+        border.moveLeft(9);
+        border.moveTop(8);
+    });
+    createBorder(1, 0xA5A5A5, (border) => {
+        border.moveLeft(9);
+        border.moveBottom(8);
+    });
+    createBorder(1, 0xA5A5A5, (border) => {
+        border.moveRight(9);
+        border.moveBottom(8);
+    });
+    createBorder(1, 0xA5A5A5, (border) => {
+        border.moveRight(9);
+        border.moveTop(8);
+    });
+    createBorder(1, 0xA5A5A5, (border) => {
+        border.moveTop();
+    });
+    createBorder(1, 0xA5A5A5, (border) => {
+        border.moveBottom();
+    });
+    createBorder(15, 0xA5A5A5, (border) => {
+        border.moveLeft(7);
+        border.moveTop(8);
+    });
+    createBorder(15, 0xA5A5A5, (border) => {
+        border.moveLeft(7);
+        border.moveBottom(8);
+    });
+    createBorder(17, 0xA5A5A5, (border) => {
+        border.moveLeft(8);
+        border.moveTop(9);
+    });
+    createBorder(17, 0xA5A5A5, (border) => {
+        border.moveLeft(8);
+        border.moveBottom(9);
+    });
+
+    createBorder(19, 0xB50202, (border) => {
+        border.moveLeft(9);
+        border.moveBottom(10);
+    });
+    createBorder(21, 0xB50202, (border) => {
+        border.moveLeft(10);
+        border.moveBottom(10);
+        border.THREE.rotation.y = 90 * Math.PI / 180;
+    });
+    createBorder(19, 0xB50202, (border) => {
+        border.moveLeft(9);
+        border.moveTop(10);
+    });
+    createBorder(21, 0xB50202, (border) => {
+        border.moveRight(10);
+        border.moveBottom(10);
+        border.THREE.rotation.y = 90 * Math.PI / 180;
+    });
+
+    createDiagonalLine(19, 0xB50202, DIRECTION.right, (block) => {
+        block.moveLeft(9);
+        block.moveBottom(9);
+    });
+    createDiagonalLine(19, 0xB50202, DIRECTION.left, (block) => {
+        block.moveRight(9);
+        block.moveBottom(9);
+    });
+};
+
+function addBlocksScene() {
+    createFloor();
+    createPodium();
+    createLimitationLine();
 };
 
 function pushBlockGroupInBlockMeshes(block) {

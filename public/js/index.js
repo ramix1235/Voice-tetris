@@ -26,18 +26,20 @@ function init() {
 
   addEnvironment();
   addEventListeners();
+  helperGame.start = true;
 };
 
 function animate() {
   requestAnimationFrame(animate);
   render();
   updateDevModules();
-  // helperBB.update();
+  if (helperGame.start) {
+    helperGame.init();
+  }
 };
 
 function render() {
   composer.render();
-  // initModelsObj();
   // renderer.render(scene, camera);
 };
 

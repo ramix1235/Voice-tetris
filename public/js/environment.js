@@ -4,6 +4,37 @@ function addEnvironment() {
     addLights();
     addShaders();
     addOrbitControls();
+    create3DText('seconds:', 'seconds:', { x: -20.5, y: -0.35, z: 20.8 });
+    create3DText('score:', 'score:', { x: -18.4, y: 1, z: 20.8 });
+    create3DText('NEXT BLOCK:', 'nextBlock:', { x: -26, y: 22.4, z: -2.45 });
+    addInvisibleBorders((plane) => {
+        plane.position.z = -9.75;
+        plane.position.y = 50;
+    });
+    addInvisibleBorders((plane) => {
+        plane.position.z = 9.75;
+        plane.position.y = 50;
+    });
+    addInvisibleBorders((plane) => {
+        plane.position.x = 9.75;
+        plane.position.y = 50;
+        plane.rotation.y = 90 * Math.PI / 180;
+    });
+    addInvisibleBorders((plane) => {
+        plane.position.x = -9.75;
+        plane.position.y = 50;
+        plane.rotation.y = 90 * Math.PI / 180;
+    });
+};
+
+function addInvisibleBorders(callback) {
+    const geometry = new THREE.PlaneGeometry(25, 100, 5);
+    const material = new THREE.MeshBasicMaterial();
+    let plane = new THREE.Mesh(geometry, material);
+    plane.visible = false;
+    callback(plane);
+    scene.add(plane);
+    invisibleMeshes.push(plane);
 };
 
 function addShaders() {

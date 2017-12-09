@@ -117,15 +117,25 @@ function showInfo(s) {
   }
 };
 function speeching() {
-  let originPoint = activeObj.THREE.position.clone();
+  let originPoint = helperGame.activeBlock.THREE.position.clone();
   let sentence = speechComand.split(' ');
   command = sentence[sentence.length - 1].toLowerCase();
   if (~command.indexOf('l') || ~command.indexOf('л')) {
-    activeObj.moveLeft();
+    helperGame.activeBlock.moveLeft();
   } else if (~command.indexOf('r') || ~command.indexOf('п')) {
-    activeObj.moveRight();
+    helperGame.activeBlock.moveRight();
+  } else if (~command.indexOf('t') || ~command.indexOf('х')) {
+    helperGame.activeBlock.moveTop();
+  } else if (~command.indexOf('b') || ~command.indexOf('з')) {
+    helperGame.activeBlock.moveBottom();
   }
-  if (isIntersects(activeObj.THREE, blockMeshes)) {
-    activeObj.THREE.position.set(originPoint.x, originPoint.y, originPoint.z);
+  if (isIntersects(helperGame.activeBlock.THREE, blockMeshes)) {
+    helperGame.activeBlock.intersected = true;
+    helperGame.activeBlock.THREE.position.set(originPoint.x, originPoint.y, originPoint.z);
+  } else {
+    helperGame.activeBlock.intersected = false;
+  }
+  if (isIntersects(helperGame.activeBlock.THREE, invisibleMeshes)) {
+    helperGame.activeBlock.THREE.position.set(originPoint.x, originPoint.y, originPoint.z);
   }
 };
