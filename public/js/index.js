@@ -21,8 +21,8 @@ function init() {
   renderer.shadowMap.enabled = true;
   container.appendChild(renderer.domElement);
 
-  const axes = new THREE.AxesHelper(75);
-  scene.add(axes);
+  // const axes = new THREE.AxesHelper(75);
+  // scene.add(axes);
 
   addEnvironment();
   addEventListeners();

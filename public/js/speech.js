@@ -130,10 +130,7 @@ function speeching() {
     helperGame.activeBlock.moveBottom();
   }
   if (isIntersects(helperGame.activeBlock.THREE, blockMeshes)) {
-    helperGame.activeBlock.intersected = true;
     helperGame.activeBlock.THREE.position.set(originPoint.x, originPoint.y, originPoint.z);
-  } else {
-    helperGame.activeBlock.intersected = false;
   }
   if (isIntersects(helperGame.activeBlock.THREE, invisibleMeshes)) {
     helperGame.activeBlock.THREE.position.set(originPoint.x, originPoint.y, originPoint.z);

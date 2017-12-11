@@ -10,7 +10,7 @@ const Block = class Block extends BaseClass {
             z: depth
         };
         this.merged = merged || false;
-        this.intersected = false;
+        // this.intersected = false;
         // this.unitSize = {
         //     rectangle: {
         //         z: 1,

@@ -5,6 +5,8 @@ let HelperGame = class HelperGame {
         this.score = null;
         this.speed = 1;
         this.start = false;
+        this.finish = false;
+        this.maxHeight = 22.7;
         this.time = {
             start: null,
             current: null
@@ -17,35 +19,39 @@ let HelperGame = class HelperGame {
             this.activeBlock = this.addBlock();
             this.activeBlock.THREE.position.x = 0;
             this.activeBlock.THREE.position.z = 0;
-            this.activeBlock.moveUp(50);
+            this.activeBlock.moveUp(25);
             this.nextBlock = this.addBlock();
             this.nextBlock.moveUp(22);
             this.nextBlock.moveLeft(15);
         }
         if (!isIntersects(this.activeBlock.THREE, blockMeshes) || isIntersects(this.activeBlock.THREE, invisibleMeshes)) {
-            this.activeBlock.THREE.position.y -= 0.2;
+            this.activeBlock.THREE.position.y -= 0.2 * this.speed;
         } else {
+            if (this.activeBlock.THREE.position.y >= this.maxHeight) {
+                this.start = false;
+                return;
+            }
             this.updateScore();
             this.activeBlock = this.nextBlock;
             this.activeBlock.THREE.position.x = 0;
             this.activeBlock.THREE.position.z = 0;
-            this.activeBlock.moveUp(50);
+            this.activeBlock.moveUp(3);
             this.nextBlock = this.addBlock();
             this.nextBlock.moveUp(22);
             this.nextBlock.moveLeft(15);
         }
     }
 
-    finish() {
-
-    }
-
     updateScore() {
+        const period = 5;
+        const maxSpeed = 3;
         let oldText = scene.children.find((item) => { return item.name === 'score' });
+        let newText = ++this.score;
         if (oldText) {
             THREERemove(oldText);
         }
-        create3DText(++this.score, 'score', { x: -12.5, y: 1, z: 20.8 });
+        create3DText(newText, 'score', { x: -12.5, y: 1, z: 20.8 });
+        if (this.speed < maxSpeed && !(newText % period)) this.speed += 0.2;
     }
 
     timer() {
