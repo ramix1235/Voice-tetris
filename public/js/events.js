@@ -10,7 +10,12 @@ function addEventListeners() {
 
 function onKeydown(event) {
     window.removeEventListener('keydown', onKeydown, false);
-    let originPoint = helperGame.activeBlock.THREE.position.clone();
+    let originPoint;
+    if (helperGame.activeBlock) {
+        originPoint = helperGame.activeBlock.THREE.position.clone();
+    } else {
+        return;
+    }
     switch (event.which) {
         case 65: helperGame.activeBlock.moveLeft(); break;
         case 68: helperGame.activeBlock.moveRight(); break;
@@ -38,17 +43,22 @@ function onMouseMove(event) {
 
 function onMouseUp(event) {
     devModules.controls.enableRotate = true;
-    devModules.controls.enablePan = true;
+    // devModules.controls.enablePan = true;
 };
 
 function onMouseDown(event) {
-    let originPoint = helperGame.activeBlock.THREE.rotation.clone();
+    let originPoint;
+    if (helperGame.activeBlock) {
+        originPoint = helperGame.activeBlock.THREE.position.clone();
+    } else {
+        return;
+    }
     raycaster = new THREE.Raycaster();
     raycaster.setFromCamera(mouse, camera);
     const intersects = raycaster.intersectObjects([helperGame.activeBlock.THREE], true);
     if (intersects.length > 0) {
         devModules.controls.enableRotate = false;
-        devModules.controls.enablePan = false;
+        // devModules.controls.enablePan = false;
         switch (event.which) {
             case 1: helperGame.activeBlock.rotateLeft(); break;
             case 3: helperGame.activeBlock.rotateRight(); break;
@@ -57,4 +67,17 @@ function onMouseDown(event) {
     if (isIntersects(helperGame.activeBlock.THREE, blockMeshes) || isIntersects(helperGame.activeBlock.THREE, invisibleMeshes)) {
         helperGame.activeBlock.THREE.rotation.set(originPoint.x, originPoint.y, originPoint.z);
     }
+};
+
+function onClickStartGame() {
+    helperGame.start = true;
+    // devModules.controls.enableZoom = true;
+    document.getElementById('btn_start').style.top = '92%';
+    document.getElementById('statistics').style.display = 'none';
+    setTimeout(() => {
+        document.getElementById('btn_voice').style.display = 'inline-block';
+        document.getElementById('btn_start').style.display = 'none';
+        document.getElementById('speech').style.display = 'inline-block';
+        document.getElementById('btn_start').getElementsByTagName('span')[0].innerHTML = 'START VOICE ';
+    }, 1000);
 };

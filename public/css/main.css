@@ -10,19 +10,45 @@ html, body {
 }
 #speech {
     position: absolute;
-    right: 10px;
-    bottom: 10px;
+    top: 95%;
+    left: 50%;
+    transform: translate(-50%);
+    transition: all 0.5s;
+    display: none;
 }
 #info {
     font-size: 20px;
+    font-family: monospace;
     text-align: center;
-    color: #777;
+    color: #000000;
     visibility: hidden;
 }
-#start_button {
-    border: 0;
-    background-color:transparent;
-    padding: 0;
+#statistics {
+    position: absolute;
+    font-family: monospace;
+    transition: all 0.5s;
+    border-radius: 4px;
+    border: 5px solid #000000;
+    background-color: transparent;
+    color: #000000;
+    font-size: 30px;
+    transform: translate(-50%, -50%);
+    top: 40%;
+    left: 80%;
+    padding: 10px 150px 80px 10px;
+    display: none;
+    text-align: center;
+}
+#statistics > button {
+    bottom: 10%;
+    left: 5%;
+    border: 3px solid #000000;
+    font-size: 30px;
+}
+#language {
+    position: absolute;
+    top: 96%;
+    left: 1%;
 }
 .info {
     font-size: 14px;
@@ -32,4 +58,55 @@ html, body {
 }
 .right {
     float: right;
+}
+.button {
+    position: absolute;
+    display: inline-block;
+    border-radius: 4px;
+    background-color: transparent;
+    color: #000000;
+    transition: all 0.5s;
+    cursor: pointer;
+    font-family: monospace;
+}
+.button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+#btn_voice.button {
+    top: 92%;
+    display: none;
+    width: 1000px;
+    font-size: 100px;
+    left: 50%;
+    transform: translate(-50%, -80%);
+    border: 5px solid #000000;
+}
+#btn_start.button {
+    top: 50%;
+    width: 1000px;
+    font-size: 100px;
+    left: 50%;
+    transform: translate(-50%, -80%);
+    border: 5px solid #000000;
+}
+#btn_start.button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -50px;
+    transition: 0.5s;
+}
+#btn_start.button:hover span {
+    padding-right: 70px;
+}
+#btn_start.button:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+.button:focus {
+    outline: none;
 }

@@ -6,7 +6,7 @@ function init() {
     alert('Your graphics card does not seem to support WebGL.');
     return;
   }
-  addStats();
+  // addStats();
   scene = new THREE.Scene();
   scene.fog = new THREE.FogExp2(0xffffff, 0.006);
 
@@ -26,7 +26,7 @@ function init() {
 
   addEnvironment();
   addEventListeners();
-  helperGame.start = true;
+  // helperGame.start = true;
 };
 
 function animate() {

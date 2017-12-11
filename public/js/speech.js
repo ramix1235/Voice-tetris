@@ -20,23 +20,20 @@ showInfo('info_start');
 if (!('webkitSpeechRecognition' in window)) {
   upgrade();
 } else {
-  start_button.style.display = 'inline-block';
   var recognition = new webkitSpeechRecognition();
   recognition.continuous = true;
   recognition.interimResults = true;
   recognition.onstart = function () {
     recognizing = true;
     showInfo('info_speak_now');
-    start_img.src = '/public/gif/mic-animate.gif';
+    document.getElementById('btn_voice').getElementsByTagName('span')[0].innerHTML = 'SPEAKING... ';
   };
   recognition.onerror = function (event) {
     if (event.error == 'no-speech') {
-      start_img.src = '/public/gif/mic.gif';
       showInfo('info_no_speech');
       ignore_onend = true;
     }
     if (event.error == 'audio-capture') {
-      start_img.src = '/public/gif/mic.gif';
       showInfo('info_no_microphone');
       ignore_onend = true;
     }
@@ -54,12 +51,11 @@ if (!('webkitSpeechRecognition' in window)) {
     if (ignore_onend) {
       return;
     }
-    start_img.src = '/public/gif/mic.gif';
     if (!final_transcript) {
       showInfo('info_start');
+      document.getElementById('btn_voice').getElementsByTagName('span')[0].innerHTML = 'START VOICE ';
       return;
     }
-    showInfo('');
   };
   recognition.onresult = function (event) {
     var interim_transcript = '';
@@ -88,7 +84,6 @@ function updateCountry() {
   select_dialect.style.visibility = list[1].length == 1 ? 'hidden' : 'visible';
 };
 function upgrade() {
-  start_button.style.visibility = 'hidden';
   showInfo('info_upgrade');
 };
 function startButton(event) {
@@ -96,12 +91,11 @@ function startButton(event) {
     recognition.stop();
     return;
   }
+  if (!helperGame.start) return;
   final_transcript = '';
   recognition.lang = select_dialect.value;
   recognition.start();
   ignore_onend = false;;
-  start_img.src = '/public/gif/mic-slash.gif';
-  showInfo('info_allow');
   start_timestamp = event.timeStamp;
 };
 function showInfo(s) {

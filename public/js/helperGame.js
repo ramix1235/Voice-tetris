@@ -5,12 +5,12 @@ let HelperGame = class HelperGame {
         this.score = null;
         this.speed = 1;
         this.start = false;
-        this.finish = false;
         this.maxHeight = 22.7;
         this.time = {
             start: null,
             current: null
         };
+        this.blocks = [];
     }
 
     init() {
@@ -20,6 +20,7 @@ let HelperGame = class HelperGame {
             this.activeBlock.THREE.position.x = 0;
             this.activeBlock.THREE.position.z = 0;
             this.activeBlock.moveUp(25);
+            this.blocks.push(this.activeBlock.THREE);
             this.nextBlock = this.addBlock();
             this.nextBlock.moveUp(22);
             this.nextBlock.moveLeft(15);
@@ -29,6 +30,10 @@ let HelperGame = class HelperGame {
         } else {
             if (this.activeBlock.THREE.position.y >= this.maxHeight) {
                 this.start = false;
+                this.activeBlock = null;
+                document.getElementById('statistics').style.display = 'inline-block';
+                document.getElementById('statistics').getElementsByTagName('div')[0].innerHTML = `Score: ${this.score}`;
+                document.getElementById('statistics').getElementsByTagName('div')[1].innerHTML = `Time: ${Math.round((this.time.current - this.time.start) / 1000)}`;
                 return;
             }
             this.updateScore();
@@ -36,10 +41,29 @@ let HelperGame = class HelperGame {
             this.activeBlock.THREE.position.x = 0;
             this.activeBlock.THREE.position.z = 0;
             this.activeBlock.moveUp(3);
+            this.blocks.push(this.activeBlock.THREE);
             this.nextBlock = this.addBlock();
             this.nextBlock.moveUp(22);
             this.nextBlock.moveLeft(15);
         }
+    }
+
+    reset() {
+        THREERemove(scene.children.find((item) => { return item.name === 'score' }));
+        THREERemove(scene.children.find((item) => { return item.name === 'timer' }));
+        THREERemove(this.nextBlock.THREE);
+        // removed from blockMeshes?
+        this.blocks.forEach(block => {
+            THREERemove(block);
+        });
+        this.nextBlock = null;
+        this.score = null;
+        this.speed = 1;
+        this.time = {
+            start: null,
+            current: null
+        };
+        this.blocks.length = 0;
     }
 
     updateScore() {

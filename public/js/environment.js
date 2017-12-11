@@ -73,7 +73,7 @@ function addLights() {
 
 function addOrbitControls() {
     devModules.controls = new THREE.OrbitControls(camera, renderer.domElement);
-    // devModules.controls.enablePan = false;
+    devModules.controls.enablePan = false;
     // devModules.controls.enableZoom = false;
     // devModules.controls.autoRotate = true;
     // devModules.controls.maxPolarAngle = 90 * Math.PI / 180;
