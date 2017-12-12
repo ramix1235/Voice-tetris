@@ -17,9 +17,13 @@ function onKeydown(event) {
         return;
     }
     switch (event.which) {
+        case 37:
         case 65: helperGame.activeBlock.moveLeft(); break;
+        case 39:
         case 68: helperGame.activeBlock.moveRight(); break;
+        case 40:
         case 83: helperGame.activeBlock.moveBottom(); break;
+        case 38:
         case 87: helperGame.activeBlock.moveTop();
     }
     if (isIntersects(helperGame.activeBlock.THREE, blockMeshes)) {
