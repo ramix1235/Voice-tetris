@@ -72,6 +72,7 @@ function onMouseDown(event) {
 function onClickStartGame() {
     helperGame.start = true;
     // devModules.controls.enableZoom = true;
+    devModules.controls.autoRotate = false;
     document.getElementById('btn_start').style.top = '92%';
     document.getElementById('statistics').style.display = 'none';
     setTimeout(() => {
