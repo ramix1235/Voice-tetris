@@ -118,9 +118,9 @@ function speeching() {
     helperGame.activeBlock.moveLeft();
   } else if (~command.indexOf('r') || ~command.indexOf('п')) {
     helperGame.activeBlock.moveRight();
-  } else if (~command.indexOf('t') || ~command.indexOf('х')) {
+  } else if (~command.indexOf('u') || ~command.indexOf('х')) {
     helperGame.activeBlock.moveTop();
-  } else if (~command.indexOf('b') || ~command.indexOf('з')) {
+  } else if (~command.indexOf('d') || ~command.indexOf('н')) {
     helperGame.activeBlock.moveBottom();
   }
   if (isIntersects(helperGame.activeBlock.THREE, blockMeshes)) {
