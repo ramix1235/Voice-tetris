@@ -27,7 +27,9 @@ function onKeydown(event) {
         case 83: helperGame.activeBlock.moveBottom(); break;
         case 38:
         case 87: helperGame.activeBlock.moveTop(); break;
+        case 17:
         case 81: helperGame.activeBlock.rotateLeft(); break;
+        case 13:
         case 69: helperGame.activeBlock.rotateRight(); break;
     }
     if (isIntersects(helperGame.activeBlock.THREE, blockMeshes)) {
