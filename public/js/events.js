@@ -10,9 +10,11 @@ function addEventListeners() {
 
 function onKeydown(event) {
     window.removeEventListener('keydown', onKeydown, false);
-    let originPoint;
+    let originPointPos;
+    let originPointRot;
     if (helperGame.activeBlock) {
-        originPoint = helperGame.activeBlock.THREE.position.clone();
+        originPointPos = helperGame.activeBlock.THREE.position.clone();
+        originPointRot = helperGame.activeBlock.THREE.rotation.clone();
     } else {
         return;
     }
@@ -24,13 +26,18 @@ function onKeydown(event) {
         case 40:
         case 83: helperGame.activeBlock.moveBottom(); break;
         case 38:
-        case 87: helperGame.activeBlock.moveTop();
+        case 87: helperGame.activeBlock.moveTop(); break;
+        case 81: helperGame.activeBlock.rotateLeft(); break;
+        case 69: helperGame.activeBlock.rotateRight(); break;
     }
     if (isIntersects(helperGame.activeBlock.THREE, blockMeshes)) {
-        helperGame.activeBlock.THREE.position.set(originPoint.x, originPoint.y, originPoint.z);
+        helperGame.activeBlock.THREE.position.set(originPointPos.x, originPointPos.y, originPointPos.z);
     }
     if (isIntersects(helperGame.activeBlock.THREE, invisibleMeshes)) {
-        helperGame.activeBlock.THREE.position.set(originPoint.x, originPoint.y, originPoint.z); 
+        helperGame.activeBlock.THREE.position.set(originPointPos.x, originPointPos.y, originPointPos.z); 
+    }
+    if (isIntersects(helperGame.activeBlock.THREE, blockMeshes) || isIntersects(helperGame.activeBlock.THREE, invisibleMeshes)) {
+        helperGame.activeBlock.THREE.rotation.set(originPointRot.x, originPointRot.y, originPointRot.z);
     }
 };
 
@@ -53,7 +60,7 @@ function onMouseUp(event) {
 function onMouseDown(event) {
     let originPoint;
     if (helperGame.activeBlock) {
-        originPoint = helperGame.activeBlock.THREE.position.clone();
+        originPoint = helperGame.activeBlock.THREE.rotation.clone();
     } else {
         return;
     }
